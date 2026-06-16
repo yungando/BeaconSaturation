@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BeaconBlockEntity.class)
 public class BeaconBlockEntityMixin {
   @Inject(method = "applyEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z", shift = At.Shift.AFTER, ordinal = 1))
-  private static void applyEffects(Level world, BlockPos pos, int beaconLevel, Holder<MobEffect> primaryEffect, Holder<MobEffect> secondaryEffect, CallbackInfo ci, @Local(name = "player") Player player, @Local(name = "durationTicks") int durationTicks) {
-    if (secondaryEffect.equals(MobEffects.REGENERATION)) {
+  private static void applyEffects(Level level, BlockPos worldPosition, int levels, Holder<MobEffect> primaryPower, Holder<MobEffect> secondaryPower, CallbackInfo ci, @Local(name = "player") Player player, @Local(name = "durationTicks") int durationTicks) {
+    if (secondaryPower.equals(MobEffects.REGENERATION)) {
       player.addEffect(new MobEffectInstance(MobEffects.SATURATION, durationTicks, 0, true, true));
     }
   }
